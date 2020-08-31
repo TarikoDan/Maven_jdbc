@@ -16,8 +16,6 @@ public class Main {
             }
         System.out.println("--------------------------");
 
-        Actor actorX = new Actor();
-        List<Actor> actorsList = actorX.allActors(sakila);
 
 //            PreparedStatement preparedStatementActors = sakila.prepareStatement("select * from actor");
 //            ResultSet setActors = preparedStatementActors.executeQuery();
@@ -28,12 +26,14 @@ public class Main {
 //                String surname = setActors.getNString(3);
 //                actors.add(new Actor(id, name, surname));
 //            }
+        Actor actorX = new Actor();
+        List<Actor> actorsList = actorX.allActors(sakila);
+
         System.out.println(actorsList);
         System.out.println("--------------------------");
 
 //        PreparedStatement delete205 = sakila.prepareStatement("DELETE FROM actor WHERE actor_id = 205");
 //        delete205.executeUpdate();
-//        PreparedStatement actorss = sakila.prepareStatement("select * from actor");
 
         actorX.removeItemById(sakila,206);
         actorX.insertActorToNewRow(sakila, new Actor(500, "aaa", "bbb"));
@@ -41,9 +41,6 @@ public class Main {
         actorX.editRowsByCondition(sakila, new Actor(0, "Steve", "Jobs"),"first_name = 'aaa'");
         actorX.removeItemsByName(sakila,"Danny");
         actorX.printActors(sakila);
-
-
-
 
 //        List<Actor> listPE = actors.stream().filter(actor -> actor.name.toLowerCase().contains("pe")).collect(Collectors.toList());
 //        System.out.println(listPE);
@@ -56,11 +53,7 @@ public class Main {
 //        insertActorX.setString(2, "kkk");
 //        insertActorX.executeUpdate();
 //
-//        connection.close();
+        sakila.close();
 
-//        }
-//        catch (SQLException throwables) {
-//            throwables.printStackTrace();
-//        }
     }
 }
