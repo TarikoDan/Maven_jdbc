@@ -55,5 +55,17 @@ public class Main {
 //
         sakila.close();
 
+        Film filmX = new Film();
+        filmX.printAllFilmsList(10);
+        System.out.println(filmX.getFilmById(5));
+        System.out.println("--------------------------");
+
+        List<Film> films2006 = filmX.getFilmsByYear(2000);
+        filmX.printListOfFilms(films2006);
+
+        filmX.getConnect().close();
+
+
+
     }
 }
