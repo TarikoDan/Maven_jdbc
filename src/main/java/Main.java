@@ -16,7 +16,6 @@ public class Main {
             }
         System.out.println("--------------------------");
 
-
 //            PreparedStatement preparedStatementActors = sakila.prepareStatement("select * from actor");
 //            ResultSet setActors = preparedStatementActors.executeQuery();
 //            ArrayList<Actor> actors = new ArrayList<>();
@@ -53,7 +52,7 @@ public class Main {
 //        insertActorX.setString(2, "kkk");
 //        insertActorX.executeUpdate();
 //
-        sakila.close();
+//        sakila.close();
 
         Film filmX = new Film();
         filmX.printAllFilmsList(10);
@@ -65,7 +64,41 @@ public class Main {
 
         filmX.getConnect().close();
 
+        System.out.println("--------------------------");
+        System.out.println("--------------------------");
 
+        ResultSet filmsOfActor = sakila.prepareStatement(
+                "select A.first_name Name, A.last_name surName, " +
+                        "F.film_id, F.title " +
+                        "from ((actor A " +
+                        "inner join film_actor FA " +
+                        "on A.actor_id = FA.actor_id) " +
+                        "inner join film F " +
+                        "on F.film_id = FA.film_id " +
+                        "and F.release_year = 2020) " +
+                        "order by Name, surName"
+        ).executeQuery();
+
+        ResultSetMetaData md = filmsOfActor.getMetaData();
+        int count = md.getColumnCount();
+        System.out.println("cLabel" + " " + "cName");
+
+        for (int i =1; i <= count; i++) {
+            String cLabel = md.getColumnLabel(i);
+            String cName = md.getColumnName(i);
+            System.out.println(cLabel + " " + cName);
+
+        }
+        System.out.println("--------------------------");
+
+        while (filmsOfActor.next()) {
+            String name = filmsOfActor.getString("Name");
+            String surname = filmsOfActor.getString("surName");
+            int id = filmsOfActor.getInt(3);
+            String title = filmsOfActor.getString("title");
+            System.out.println(name  + " " + surname + " " + id + " " + title);
+        }
+        System.out.println("--------------------------");
 
     }
 }
